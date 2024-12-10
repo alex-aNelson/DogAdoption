@@ -29,38 +29,43 @@ else
                 </div>
                 <div class="mb-3">
                     <label for="dogage" class="form-label">DogAge:</label>
-                    <InputNumber id="dogage" @bind-Value="Dog.DogAge" class="form-control" />
+                    <InputNumber id="dogage" @bind-Value="Dog.DogAge" class="form-control" aria-required="true"/>
                     <ValidationMessage For="() => Dog.DogAge" class="text-danger" />
                 </div>
                 <div class="mb-3">
                     <label for="dogweight" class="form-label">DogWeight:</label>
-                    <InputNumber id="dogweight" @bind-Value="Dog.DogWeight" class="form-control" />
+                    <InputNumber id="dogweight" @bind-Value="Dog.DogWeight" class="form-control" aria-required="true"/>
                     <ValidationMessage For="() => Dog.DogWeight" class="text-danger" />
                 </div>
                 <div class="mb-3">
                     <label for="dogbreed" class="form-label">DogBreed:</label>
-                    <InputText id="dogbreed" @bind-Value="Dog.DogBreed" class="form-control" />
+                    <InputText id="dogbreed" @bind-Value="Dog.DogBreed" class="form-control" aria-required="true"/>
                     <ValidationMessage For="() => Dog.DogBreed" class="text-danger" />
                 </div>
                 <div class="mb-3">
                     <label for="ismale" class="form-label">IsMale:</label>
-                    <InputCheckbox id="ismale" @bind-Value="Dog.IsMale" class="form-check-input" />
+                    <InputCheckbox id="ismale" @bind-Value="Dog.IsMale" class="form-check-input" aria-required="true"/>
                     <ValidationMessage For="() => Dog.IsMale" class="text-danger" />
                 </div>
                 <div class="mb-3">
                     <label for="isvaccinated" class="form-label">IsVaccinated:</label>
-                    <InputCheckbox id="isvaccinated" @bind-Value="Dog.IsVaccinated" class="form-check-input" />
+                    <InputCheckbox id="isvaccinated" @bind-Value="Dog.IsVaccinated" class="form-check-input" aria-required="true"/>
                     <ValidationMessage For="() => Dog.IsVaccinated" class="text-danger" />
                 </div>
                 <div class="mb-3">
                     <label for="isneutered" class="form-label">IsNeutered:</label>
-                    <InputCheckbox id="isneutered" @bind-Value="Dog.IsNeutered" class="form-check-input" />
+                    <InputCheckbox id="isneutered" @bind-Value="Dog.IsNeutered" class="form-check-input" aria-required="true"/>
                     <ValidationMessage For="() => Dog.IsNeutered" class="text-danger" />
                 </div>
                 <div class="mb-3">
                     <label for="temperament" class="form-label">Temperament:</label>
                     <InputText id="temperament" @bind-Value="Dog.Temperament" class="form-control" />
                     <ValidationMessage For="() => Dog.Temperament" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="imageurl" class="form-label">ImageURL:</label>
+                    <InputText id="imageurl" @bind-Value="Dog.ImageURL" class="form-control" aria-required="true"/>
+                    <ValidationMessage For="() => Dog.ImageURL" class="text-danger" />
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
             </EditForm>

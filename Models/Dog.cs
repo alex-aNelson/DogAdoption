@@ -33,5 +33,8 @@ namespace DogAdoption.Models
 
         [StringLength(100, ErrorMessage = "Temperament description cannot exceed 100 characters.")]
         public string Temperament { get; set; } = string.Empty; // Temperament is now non-nullable
+
+        [Required]
+        public string ImageURL { get; set; }
     }
 }
