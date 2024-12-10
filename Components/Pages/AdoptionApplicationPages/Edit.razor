@@ -1,0 +1,114 @@
+﻿@page "/adoptionapplications/edit"
+@using Microsoft.EntityFrameworkCore
+@using DogAdoption.Models
+@inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>AdoptionApplication</h2>
+<hr />
+@if (AdoptionApplication is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="AdoptionApplication" OnValidSubmit="UpdateAdoptionApplication" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary role="alert"/>
+                <input type="hidden" name="AdoptionApplication.ApplicationID" value="@AdoptionApplication.ApplicationID" />
+                <div class="mb-3">
+                    <label for="userid" class="form-label">UserID:</label>
+                    <InputNumber id="userid" @bind-Value="AdoptionApplication.UserID" class="form-control" aria-required="true"/>
+                    <ValidationMessage For="() => AdoptionApplication.UserID" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="dogid" class="form-label">DogID:</label>
+                    <InputNumber id="dogid" @bind-Value="AdoptionApplication.DogID" class="form-control" aria-required="true"/>
+                    <ValidationMessage For="() => AdoptionApplication.DogID" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="phonenumber" class="form-label">PhoneNumber:</label>
+                    <InputText id="phonenumber" @bind-Value="AdoptionApplication.PhoneNumber" class="form-control" />
+                    <ValidationMessage For="() => AdoptionApplication.PhoneNumber" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="extrainformation" class="form-label">ExtraInformation:</label>
+                    <InputText id="extrainformation" @bind-Value="AdoptionApplication.ExtraInformation" class="form-control" />
+                    <ValidationMessage For="() => AdoptionApplication.ExtraInformation" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="hasotherpets" class="form-label">HasOtherPets:</label>
+                    <InputCheckbox id="hasotherpets" @bind-Value="AdoptionApplication.HasOtherPets" class="form-check-input" />
+                    <ValidationMessage For="() => AdoptionApplication.HasOtherPets" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="haschildrenundertwelve" class="form-label">HasChildrenUnderTwelve:</label>
+                    <InputCheckbox id="haschildrenundertwelve" @bind-Value="AdoptionApplication.HasChildrenUnderTwelve" class="form-check-input" />
+                    <ValidationMessage For="() => AdoptionApplication.HasChildrenUnderTwelve" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/adoptionapplications">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int ApplicationID { get; set; }
+
+    [SupplyParameterFromForm]
+    private AdoptionApplication? AdoptionApplication { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        AdoptionApplication ??= await context.AdoptionApplication.FirstOrDefaultAsync(m => m.ApplicationID == ApplicationID);
+
+        if (AdoptionApplication is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdateAdoptionApplication()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(AdoptionApplication!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!AdoptionApplicationExists(AdoptionApplication!.ApplicationID))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/adoptionapplications");
+    }
+
+    private bool AdoptionApplicationExists(int applicationid)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.AdoptionApplication.Any(e => e.ApplicationID == applicationid);
+    }
+}

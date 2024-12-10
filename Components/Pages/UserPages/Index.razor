@@ -1,0 +1,39 @@
+﻿@page "/users"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using DogAdoption.Models
+@using DogAdoption.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="users/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.User">
+    <PropertyColumn Property="user => user.Username" />
+    <PropertyColumn Property="user => user.Password" />
+    <PropertyColumn Property="user => user.IsAdmin" />
+    <PropertyColumn Property="user => user.DateOfBirth" />
+
+    <TemplateColumn Context="user">
+        <a href="@($"users/edit?userid={user.UserID}")">Edit</a> |
+        <a href="@($"users/details?userid={user.UserID}")">Details</a> |
+        <a href="@($"users/delete?userid={user.UserID}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private DogAdoptionContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

@@ -1,0 +1,60 @@
+﻿@page "/dogs/details"
+@using Microsoft.EntityFrameworkCore
+@using DogAdoption.Models
+@inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>Dog</h2>
+    <hr />
+    @if (dog is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">DogName</dt>
+            <dd class="col-sm-10">@dog.DogName</dd>
+            <dt class="col-sm-2">DogAge</dt>
+            <dd class="col-sm-10">@dog.DogAge</dd>
+            <dt class="col-sm-2">DogWeight</dt>
+            <dd class="col-sm-10">@dog.DogWeight</dd>
+            <dt class="col-sm-2">DogBreed</dt>
+            <dd class="col-sm-10">@dog.DogBreed</dd>
+            <dt class="col-sm-2">IsMale</dt>
+            <dd class="col-sm-10">@dog.IsMale</dd>
+            <dt class="col-sm-2">IsVaccinated</dt>
+            <dd class="col-sm-10">@dog.IsVaccinated</dd>
+            <dt class="col-sm-2">IsNeutered</dt>
+            <dd class="col-sm-10">@dog.IsNeutered</dd>
+            <dt class="col-sm-2">Temperament</dt>
+            <dd class="col-sm-10">@dog.Temperament</dd>
+        </dl>
+        <div>
+            <a href="@($"/dogs/edit?dogid={dog.DogID}")">Edit</a> |
+            <a href="@($"/dogs")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private Dog? dog;
+
+    [SupplyParameterFromQuery]
+    private int DogID { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        dog = await context.Dog.FirstOrDefaultAsync(m => m.DogID == DogID);
+
+        if (dog is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

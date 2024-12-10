@@ -1,0 +1,54 @@
+﻿@page "/adoptionpostings/create"
+@using Microsoft.EntityFrameworkCore
+@using DogAdoption.Models
+@inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>AdoptionPosting</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="AdoptionPosting" OnValidSubmit="AddAdoptionPosting" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="dogid" class="form-label">DogID:</label> 
+                <InputNumber id="dogid" @bind-Value="AdoptionPosting.DogID" class="form-control" aria-required="true"/> 
+                <ValidationMessage For="() => AdoptionPosting.DogID" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="description" class="form-label">Description:</label> 
+                <InputText id="description" @bind-Value="AdoptionPosting.Description" class="form-control" /> 
+                <ValidationMessage For="() => AdoptionPosting.Description" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="price" class="form-label">Price:</label> 
+                <InputNumber id="price" @bind-Value="AdoptionPosting.Price" class="form-control" /> 
+                <ValidationMessage For="() => AdoptionPosting.Price" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/adoptionpostings">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private AdoptionPosting AdoptionPosting { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddAdoptionPosting()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.AdoptionPosting.Add(AdoptionPosting);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/adoptionpostings");
+    }
+}

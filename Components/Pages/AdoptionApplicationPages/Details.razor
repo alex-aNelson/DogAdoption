@@ -1,0 +1,56 @@
+﻿@page "/adoptionapplications/details"
+@using Microsoft.EntityFrameworkCore
+@using DogAdoption.Models
+@inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>AdoptionApplication</h2>
+    <hr />
+    @if (adoptionapplication is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">UserID</dt>
+            <dd class="col-sm-10">@adoptionapplication.UserID</dd>
+            <dt class="col-sm-2">DogID</dt>
+            <dd class="col-sm-10">@adoptionapplication.DogID</dd>
+            <dt class="col-sm-2">PhoneNumber</dt>
+            <dd class="col-sm-10">@adoptionapplication.PhoneNumber</dd>
+            <dt class="col-sm-2">ExtraInformation</dt>
+            <dd class="col-sm-10">@adoptionapplication.ExtraInformation</dd>
+            <dt class="col-sm-2">HasOtherPets</dt>
+            <dd class="col-sm-10">@adoptionapplication.HasOtherPets</dd>
+            <dt class="col-sm-2">HasChildrenUnderTwelve</dt>
+            <dd class="col-sm-10">@adoptionapplication.HasChildrenUnderTwelve</dd>
+        </dl>
+        <div>
+            <a href="@($"/adoptionapplications/edit?applicationid={adoptionapplication.ApplicationID}")">Edit</a> |
+            <a href="@($"/adoptionapplications")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private AdoptionApplication? adoptionapplication;
+
+    [SupplyParameterFromQuery]
+    private int ApplicationID { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        adoptionapplication = await context.AdoptionApplication.FirstOrDefaultAsync(m => m.ApplicationID == ApplicationID);
+
+        if (adoptionapplication is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}
