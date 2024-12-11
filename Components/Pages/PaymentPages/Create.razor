@@ -1,0 +1,74 @@
+﻿@page "/payments/create"
+@using Microsoft.EntityFrameworkCore
+@using DogAdoption.Models
+@inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create Payment</PageTitle>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center mb-4">Create Payment</h1>
+            <hr />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <EditForm method="post" Model="Payment" OnValidSubmit="AddPayment" FormName="create" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary class="text-danger" role="alert" />
+
+                <div class="mb-3">
+                    <label for="cardtype" class="form-label">Card Type:</label>
+                    <InputText id="cardtype" @bind-Value="Payment.CardType" class="form-control" aria-required="true" />
+                    <ValidationMessage For="() => Payment.CardType" class="text-danger" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="cardnumber" class="form-label">Card Number:</label>
+                    <InputText id="cardnumber" @bind-Value="Payment.CardNumber" class="form-control" aria-required="true" />
+                    <ValidationMessage For="() => Payment.CardNumber" class="text-danger" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="cardholdername" class="form-label">Card Holder Name:</label>
+                    <InputText id="cardholdername" @bind-Value="Payment.CardHolderName" class="form-control" aria-required="true" />
+                    <ValidationMessage For="() => Payment.CardHolderName" class="text-danger" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="expirationdate" class="form-label">Expiration Date:</label>
+                    <InputDate id="expirationdate" @bind-Value="Payment.ExpirationDate" class="form-control" aria-required="true" />
+                    <ValidationMessage For="() => Payment.ExpirationDate" class="text-danger" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="securitycode" class="form-label">Security Code:</label>
+                    <InputText id="securitycode" @bind-Value="Payment.SecurityCode" class="form-control" aria-required="true" />
+                    <ValidationMessage For="() => Payment.SecurityCode" class="text-danger" />
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <a href="/payments" class="btn btn-secondary">Cancel</a>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Payment Payment { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddPayment()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Payment.Add(Payment);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/payments");
+    }
+}

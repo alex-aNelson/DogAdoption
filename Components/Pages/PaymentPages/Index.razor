@@ -1,0 +1,55 @@
+﻿@page "/payments"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using DogAdoption.Models
+@using DogAdoption.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center mb-4">Manage Payments</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 text-end mb-3">
+            <a class="btn btn-primary" href="payments/create">Create New Payment</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <QuickGrid Class="table table-striped table-hover" Items="context.Payment">
+                <PropertyColumn Title="Card Type" Property="payment => payment.CardType" />
+                <PropertyColumn Title="Card Number" Property="payment => payment.CardNumber" />
+                <PropertyColumn Title="Card Holder Name" Property="payment => payment.CardHolderName" />
+                <PropertyColumn Title="Expiration Date" Property="payment => payment.ExpirationDate" />
+                <PropertyColumn Title="Security Code" Property="payment => payment.SecurityCode" />
+
+                <TemplateColumn Title="Actions" Context="payment">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-sm btn-warning" href="@($"payments/edit?paymentid={payment.PaymentId}")">Edit</a>
+                        <a class="btn btn-sm btn-info" href="@($"payments/details?paymentid={payment.PaymentId}")">Details</a>
+                        <a class="btn btn-sm btn-danger" href="@($"payments/delete?paymentid={payment.PaymentId}")">Delete</a>
+                    </div>
+                </TemplateColumn>
+            </QuickGrid>
+        </div>
+    </div>
+</div>
+
+@code {
+    private DogAdoptionContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}
+

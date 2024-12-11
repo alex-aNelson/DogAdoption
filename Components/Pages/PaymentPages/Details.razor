@@ -1,0 +1,70 @@
+﻿@page "/payments/details"
+@using Microsoft.EntityFrameworkCore
+@using DogAdoption.Models
+@inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Payment Details</PageTitle>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center mb-4">Payment Details</h1>
+            <hr />
+        </div>
+    </div>
+
+    @if (payment is null)
+    {
+        <div class="row">
+            <div class="col-12 text-center">
+                <p><em>Loading...</em></p>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <dl class="row">
+                    <dt class="col-sm-4">Card Type</dt>
+                    <dd class="col-sm-8">@payment.CardType</dd>
+
+                    <dt class="col-sm-4">Card Number</dt>
+                    <dd class="col-sm-8">@payment.CardNumber</dd>
+
+                    <dt class="col-sm-4">Card Holder Name</dt>
+                    <dd class="col-sm-8">@payment.CardHolderName</dd>
+
+                    <dt class="col-sm-4">Expiration Date</dt>
+                    <dd class="col-sm-8">@payment.ExpirationDate</dd>
+
+                    <dt class="col-sm-4">Security Code</dt>
+                    <dd class="col-sm-8">@payment.SecurityCode</dd>
+                </dl>
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="@($"/payments/edit?paymentid={payment.PaymentId}")" class="btn btn-primary">Edit</a>
+                    <a href="@($"/payments")" class="btn btn-secondary">Back to List</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private Payment? payment;
+
+    [SupplyParameterFromQuery]
+    private int PaymentId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        payment = await context.Payment.FirstOrDefaultAsync(m => m.PaymentId == PaymentId);
+
+        if (payment is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}
