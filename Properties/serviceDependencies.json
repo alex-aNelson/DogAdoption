@@ -11,6 +11,11 @@
       "type": "mssql",
       "connectionId": "DogAdoptionDB",
       "dynamicId": null
+    },
+    "mssql3": {
+      "type": "mssql",
+      "connectionId": "ConnectionString",
+      "dynamicId": null
     }
   }
 }
