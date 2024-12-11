@@ -6,27 +6,41 @@
 @implements IAsyncDisposable
 @inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Payments</PageTitle>
 
-<h1>Index</h1>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center mb-4">Manage Payments</h1>
+        </div>
+    </div>
 
-<p>
-    <a href="payments/create">Create New</a>
-</p>
+    <div class="row">
+        <div class="col-12 text-end mb-3">
+            <a class="btn btn-primary" href="payments/create">Create New Payment</a>
+        </div>
+    </div>
 
-<QuickGrid Class="table" Items="context.Payment">
-    <PropertyColumn Property="payment => payment.CardType" />
-    <PropertyColumn Property="payment => payment.CardNumber" />
-    <PropertyColumn Property="payment => payment.CardHolderName" />
-    <PropertyColumn Property="payment => payment.ExpirationDate" />
-    <PropertyColumn Property="payment => payment.SecurityCode" />
+    <div class="row">
+        <div class="col-12">
+            <QuickGrid Class="table table-striped table-hover" Items="context.Payment">
+                <PropertyColumn Title="Card Type" Property="payment => payment.CardType" />
+                <PropertyColumn Title="Card Number" Property="payment => payment.CardNumber" />
+                <PropertyColumn Title="Card Holder Name" Property="payment => payment.CardHolderName" />
+                <PropertyColumn Title="Expiration Date" Property="payment => payment.ExpirationDate" />
+                <PropertyColumn Title="Security Code" Property="payment => payment.SecurityCode" />
 
-    <TemplateColumn Context="payment">
-        <a href="@($"payments/edit?paymentid={payment.PaymentId}")">Edit</a> |
-        <a href="@($"payments/details?paymentid={payment.PaymentId}")">Details</a> |
-        <a href="@($"payments/delete?paymentid={payment.PaymentId}")">Delete</a>
-    </TemplateColumn>
-</QuickGrid>
+                <TemplateColumn Title="Actions" Context="payment">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-sm btn-warning" href="@($"payments/edit?paymentid={payment.PaymentId}")">Edit</a>
+                        <a class="btn btn-sm btn-info" href="@($"payments/details?paymentid={payment.PaymentId}")">Details</a>
+                        <a class="btn btn-sm btn-danger" href="@($"payments/delete?paymentid={payment.PaymentId}")">Delete</a>
+                    </div>
+                </TemplateColumn>
+            </QuickGrid>
+        </div>
+    </div>
+</div>
 
 @code {
     private DogAdoptionContext context = default!;
@@ -38,3 +52,4 @@
 
     public async ValueTask DisposeAsync() => await context.DisposeAsync();
 }
+
