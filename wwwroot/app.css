@@ -49,3 +49,31 @@ h1:focus {
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
 }
+
+.background {
+    background: #dedec8;
+    padding: 4em 0;
+}
+
+.team {
+    color: #5e5e55;
+    padding: 0 180px;
+}
+
+    .team .card-columns {
+        -webkit-column-count: 4;
+        -moz-column-count: 4;
+        column-count: 4;
+    }
+
+    .team .card {
+        background: none;
+        border: none;
+    }
+
+    .team .card-title {
+        font-size: 1.3rem;
+        margin-bottom: 0;
+        text-transform: uppercase;
+    }
+

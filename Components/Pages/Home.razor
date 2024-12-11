@@ -4,4 +4,138 @@
 
 <h1>Welcome to adoption.io!</h1>
 
+<!--Image slider-->
+
+<div id="slider">
+    <figure>
+    <img src="image/dogA.jpg" />
+    <img src="image/dogB.jpg" />
+    <img src="image/dogC.jpg" />
+    </figure>
+</div>
+<style>
+    #slider {
+        overflow: hidden;
+        width:500px;
+        height:500px;
+        margin: 0 auto;
+    }
+    #slider figure{
+        position: relative;
+        width: 500%;
+        margin: 0;
+        left: 0;
+        animation: 20s slideranimation infinite;
+    }
+    #slider figure img{
+        float: left;
+       
+
+       width:500px;
+       height: 500px;
+       object-fit: cover;
+    }
+
+  
+    @@keyframes slideranimation {
+        0%
+
+    {
+        left: 0;
+    }
+
+    27% {
+        left: 0;
+    }
+
+    32% {
+        left: -100%;
+    }
+
+    59% {
+        left: -100%;
+    }
+
+    64% {
+        left: -200%;
+    }
+
+    81% {
+        left: -200%;
+    }
+
+    100% {
+        left: 0;
+    }
+
+    }
+</style>
+<!--end image slider code-->
+<!-- the team code -->
+<div class="background">
+    <h2 style=" text-align: center">Our Team!</h2>
+    <div class="container team">
+        <div class="row">
+            <div class="card col-lg-3 col-md-3 col-sm-4 text-center">
+                <img class="card-img-top rounded-circle" src="/image/alex.jpg" alt="Card image">
+                <div class="card-body">
+                    <h4 class="card-title">Alex Nelson</h4>
+                    <p class="card-text">3rd Year Computer Science Student</p>
+                </div>
+            </div>
+            <div class="card col-lg-3 col-md-3 col-sm-4 text-center">
+                <img class="card-img-top rounded-circle" src="" alt="Card image">
+                <div class="card-body">
+                    <h4 class="card-title">Zach Forkenbrock</h4>
+                    <p class="card-text">3rd Year Computer Science Student</p>
+                </div>
+            </div>
+            <div class="card col-lg-3 col-md-3 col-sm-4 text-center">
+                <img class="card-img-top rounded-circle" src="" alt="Card image">
+                <div class="card-body">
+                    <h4 class="card-title">Alec Dreyer</h4>
+                    <p class="card-text">3rd Year Computer Science Student</p>
+                </div>
+            </div>
+            <div class="card col-lg-3 col-md-3 col-sm-4 text-center">
+                <img class="card-img-top rounded-circle" src="" alt="Card image">
+                <div class="card-body">
+                    <h4 class="card-title">Alec Dreyer</h4>
+                    <p class="card-text">3rd Year Computer Science Student</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .background {
+        background: #dedec8;
+        padding: 4em 0;
+    }
+
+    .team {
+        color: #5e5e55;
+        padding: 0 180px;
+    }
+
+        .team .card-columns {
+            -webkit-column-count: 4;
+            -moz-column-count: 4;
+            column-count: 4;
+        }
+
+        .team .card {
+            background: none;
+            border: none;
+        }
+
+        .team .card-title {
+            font-size: 1.3rem;
+            margin-bottom: 0;
+            text-transform: uppercase;
+        }
+
+</style>
+<!--End team code-->
 
