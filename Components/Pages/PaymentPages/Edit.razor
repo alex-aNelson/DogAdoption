@@ -1,0 +1,129 @@
+﻿@page "/payments/edit"
+@using Microsoft.EntityFrameworkCore
+@using DogAdoption.Models
+@inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit Payment</PageTitle>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center mb-4">Edit Payment</h1>
+            <h2 class="text-center">Payment Details</h2>
+            <hr />
+        </div>
+    </div>
+
+    @if (Payment is null)
+    {
+        <div class="row">
+            <div class="col-12 text-center">
+                <p><em>Loading...</em></p>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <EditForm method="post" Model="Payment" OnValidSubmit="UpdatePayment" FormName="edit" Enhance>
+                    <DataAnnotationsValidator />
+                    <ValidationSummary role="alert" class="mb-3" />
+
+                    <input type="hidden" name="Payment.PaymentId" value="@Payment.PaymentId" />
+
+                    <div class="mb-3">
+                        <label for="cardtype" class="form-label">Card Type:</label>
+                        <InputText id="cardtype" @bind-Value="Payment.CardType" class="form-control" aria-required="true" />
+                        <ValidationMessage For="() => Payment.CardType" class="text-danger" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="cardnumber" class="form-label">Card Number:</label>
+                        <InputText id="cardnumber" @bind-Value="Payment.CardNumber" class="form-control" aria-required="true" />
+                        <ValidationMessage For="() => Payment.CardNumber" class="text-danger" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="cardholdername" class="form-label">Card Holder Name:</label>
+                        <InputText id="cardholdername" @bind-Value="Payment.CardHolderName" class="form-control" aria-required="true" />
+                        <ValidationMessage For="() => Payment.CardHolderName" class="text-danger" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="expirationdate" class="form-label">Expiration Date:</label>
+                        <InputDate id="expirationdate" @bind-Value="Payment.ExpirationDate" class="form-control" aria-required="true" />
+                        <ValidationMessage For="() => Payment.ExpirationDate" class="text-danger" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="securitycode" class="form-label">Security Code:</label>
+                        <InputText id="securitycode" @bind-Value="Payment.SecurityCode" class="form-control" aria-required="true" />
+                        <ValidationMessage For="() => Payment.SecurityCode" class="text-danger" />
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <a class="btn btn-secondary" href="/payments">Cancel</a>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    }
+
+    <div class="row mt-4">
+        <div class="col-12 text-center">
+            <a href="/payments" class="btn btn-link">Back to List</a>
+        </div>
+    </div>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int PaymentId { get; set; }
+
+    [SupplyParameterFromForm]
+    private Payment? Payment { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        Payment ??= await context.Payment.FirstOrDefaultAsync(m => m.PaymentId == PaymentId);
+
+        if (Payment is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    private async Task UpdatePayment()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(Payment!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!PaymentExists(Payment!.PaymentId))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/payments");
+    }
+
+    private bool PaymentExists(int paymentid)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.Payment.Any(e => e.PaymentId == paymentid);
+    }
+}

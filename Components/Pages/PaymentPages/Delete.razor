@@ -1,0 +1,81 @@
+﻿@page "/payments/delete"
+@using Microsoft.EntityFrameworkCore
+@using DogAdoption.Models
+@inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Delete Payment</PageTitle>
+
+<div class="container mt-5">
+    <h1 class="text-center">Delete Payment</h1>
+
+    <p class="alert alert-warning text-center">Are you sure you want to delete this payment record?</p>
+
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">Payment Information</h2>
+            <hr />
+
+            @if (payment is null)
+            {
+                <p><em>Loading...</em></p>
+            }
+            else
+            {
+                <dl class="row">
+                    <dt class="col-sm-3">Card Type:</dt>
+                    <dd class="col-sm-9">@payment.CardType</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-3">Card Number:</dt>
+                    <dd class="col-sm-9">@payment.CardNumber</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-3">Cardholder Name:</dt>
+                    <dd class="col-sm-9">@payment.CardHolderName</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-3">Expiration Date:</dt>
+                    <dd class="col-sm-9">@payment.ExpirationDate</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-3">Security Code:</dt>
+                    <dd class="col-sm-9">@payment.SecurityCode</dd>
+                </dl>
+
+                <EditForm method="post" Model="payment" OnValidSubmit="DeletePayment" FormName="delete" Enhance>
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-danger" disabled="@(payment is null)">Delete Payment</button>
+                        <a href="/payments" class="btn btn-secondary">Back to List</a>
+                    </div>
+                </EditForm>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private Payment? payment;
+
+    [SupplyParameterFromQuery]
+    private int PaymentId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        payment = await context.Payment.FirstOrDefaultAsync(m => m.PaymentId == PaymentId);
+
+        if (payment is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    private async Task DeletePayment()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Payment.Remove(payment!);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/payments");
+    }
+}
