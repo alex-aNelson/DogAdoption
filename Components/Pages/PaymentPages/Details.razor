@@ -4,33 +4,49 @@
 @inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
 @inject NavigationManager NavigationManager
 
-<PageTitle>Details</PageTitle>
+<PageTitle>Payment Details</PageTitle>
 
-<h1>Details</h1>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center mb-4">Payment Details</h1>
+            <hr />
+        </div>
+    </div>
 
-<div>
-    <h2>Payment</h2>
-    <hr />
     @if (payment is null)
     {
-        <p><em>Loading...</em></p>
+        <div class="row">
+            <div class="col-12 text-center">
+                <p><em>Loading...</em></p>
+            </div>
+        </div>
     }
-    else {
-        <dl class="row">
-            <dt class="col-sm-2">CardType</dt>
-            <dd class="col-sm-10">@payment.CardType</dd>
-            <dt class="col-sm-2">CardNumber</dt>
-            <dd class="col-sm-10">@payment.CardNumber</dd>
-            <dt class="col-sm-2">CardHolderName</dt>
-            <dd class="col-sm-10">@payment.CardHolderName</dd>
-            <dt class="col-sm-2">ExpirationDate</dt>
-            <dd class="col-sm-10">@payment.ExpirationDate</dd>
-            <dt class="col-sm-2">SecurityCode</dt>
-            <dd class="col-sm-10">@payment.SecurityCode</dd>
-        </dl>
-        <div>
-            <a href="@($"/payments/edit?paymentid={payment.PaymentId}")">Edit</a> |
-            <a href="@($"/payments")">Back to List</a>
+    else
+    {
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <dl class="row">
+                    <dt class="col-sm-4">Card Type</dt>
+                    <dd class="col-sm-8">@payment.CardType</dd>
+
+                    <dt class="col-sm-4">Card Number</dt>
+                    <dd class="col-sm-8">@payment.CardNumber</dd>
+
+                    <dt class="col-sm-4">Card Holder Name</dt>
+                    <dd class="col-sm-8">@payment.CardHolderName</dd>
+
+                    <dt class="col-sm-4">Expiration Date</dt>
+                    <dd class="col-sm-8">@payment.ExpirationDate</dd>
+
+                    <dt class="col-sm-4">Security Code</dt>
+                    <dd class="col-sm-8">@payment.SecurityCode</dd>
+                </dl>
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="@($"/payments/edit?paymentid={payment.PaymentId}")" class="btn btn-primary">Edit</a>
+                    <a href="@($"/payments")" class="btn btn-secondary">Back to List</a>
+                </div>
+            </div>
         </div>
     }
 </div>
