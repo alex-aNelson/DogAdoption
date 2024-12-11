@@ -16,6 +16,30 @@
     <a href="dogs/create">Create New</a>
 </p>
 
+<div id="process">
+    <h4>Available Dogs - Thank you for choosing adoption!</h4>
+    <p>
+        Please look below at the dogs currently available for adoption. In order to meet the dogs,
+        please fill out an adoption application and we will be in touch.
+    </p>
+    <p>
+        If you would like to see the dogs in the shelter, please stop in during open house hours,
+        which are Mondays - Thursday from 1 - 5pm.
+    </p>
+
+
+<br />
+<br />
+
+    <h4>
+        VIEW ALL OF OUR DOGS BELOW
+    </h4>
+    <P>
+        See a dog below you'd like to apply for? Click on that specific dog and click "Adopt Me" button
+    </P>
+</div>
+
+    
 
 <div id="form">
 <form action="/dogs" data-enhance>
@@ -28,9 +52,35 @@
     <input type="search" name="BreedFilter" />
     <input type="submit" value="Search by Breed" />
 </form>
+<br />
+    <form action="/dogs" data-enhance>
+        <input type="number" name="AgeFilter" placeholder="Search by Age (less than)" />
+        <input type="submit" value="Search by Age" />
+    </form>
 </div>
 
 <style>
+
+    #process {
+        text-align: center; /* Centers all text inside the #process div */
+        margin: 0 auto; /* Centers the div itself horizontally */
+        width: 80%; /* Optional: You can adjust the width for better responsiveness */
+    }
+
+    h4 {
+        color: #003366; /* Dark blue color for h4 elements */
+        font-size: 1.5rem; /* Optional: Adjust font size for h4 */
+    }
+
+    p {
+        font-size: 1rem; /* Optional: Adjust font size for paragraphs */
+        line-height: 1.5; /* Optional: Add line height for better readability */
+    }
+
+    br {
+        margin-bottom: 20px; /* Optional: Adds spacing after the <br> elements */
+    }
+
     #header{
         text-align:center;
     }
@@ -176,12 +226,19 @@
     [Parameter]
     [SupplyParameterFromQuery]
     public string? BreedFilter { get; set; }
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public int? AgeFilter { get; set; }
 
+
+    // public IQueryable<Dog> DogList => context.Dog
+    //     .Where(d => (string.IsNullOrEmpty(NameFilter) || d.DogName!.Contains(NameFilter))
+    //              && (string.IsNullOrEmpty(BreedFilter) || d.DogBreed!.Contains(BreedFilter)));
 
     public IQueryable<Dog> DogList => context.Dog
-        .Where(d => (string.IsNullOrEmpty(NameFilter) || d.DogName!.Contains(NameFilter))
-                 && (string.IsNullOrEmpty(BreedFilter) || d.DogBreed!.Contains(BreedFilter)));
-
+       .Where(d => (string.IsNullOrEmpty(NameFilter) || d.DogName!.Contains(NameFilter))
+                && (string.IsNullOrEmpty(BreedFilter) || d.DogBreed!.Contains(BreedFilter))
+                && (!AgeFilter.HasValue || d.DogAge < AgeFilter.Value));
     private DogAdoptionContext context = default!;
 
     protected override void OnInitialized()
