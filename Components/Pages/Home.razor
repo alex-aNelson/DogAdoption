@@ -1,7 +1,319 @@
 ﻿@page "/"
 
 <PageTitle>Home</PageTitle>
+<h1 style="text-align:center; background: #009879; color: #fff;">Welcome to adoption.io!</h1>
 
-<h1>Welcome to adoption.io!</h1>
+<!--Image slider-->
+<div id="slida">
+<div id="slider">
+    <figure>
+        <a href="/dogs">
+    <img src="image/Available Dogs.jpg" />
+    </a>
+    <a href="/events">
+    <img src="image/eventsss.jpg" />
+    </a>
+    <img src="image/dogC.jpg" />
+    </figure>
+</div>
+</div>
+<style>
+    #slida {
+        position: relative;
+        height: 100vh; /* Adjust the height as needed */
+        overflow: hidden;
+    }
 
+        /* Pseudo-element to apply the background and blur effect */
+        #slida::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/image/familyDog.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(5px); /* Add blur effect */
+            z-index: 1; /* Make sure the background is behind the content */
+        }
+
+    /* Ensuring the content (slider) is above the background */
+    #slider {
+        position: relative;
+        z-index: 2; /* Keep the slider images on top of the blurred background */
+    }
+</style>
+<!--adoption journey-->
+<div class="hero-section" style="background: #009879; padding: 50px 0; text-align: center;">
+    <h2 style="font-size: 3rem; color: #fff;">Adopt a Dog, Save a Life</h2>
+    <p style="font-size: 1.2rem; color: #fff;">Find your best friend today and bring home a companion!</p>
+    <a href="/dogs" class="btn btn-primary" style="font-size: 1.2rem;">Start Adoption Journey</a>
+</div>
+<!--adoption process-->
+<div class="adoption-process" style="text-align: center; background: #e9ecef; padding: 50px 0;">
+    <h3>How to Adopt</h3>
+    <div class="steps" style="display: flex; justify-content: center; gap: 20px;">
+        <div class="step" style="flex: 1; background: #f8f9fa; padding: 20px; border-radius: 8px;">
+            <h4>Step 1: Browse</h4>
+            <p>Browse our available dogs and find the one that best fits your family.</p>
+        </div>
+        <div class="step" style="flex: 1; background: #f8f9fa; padding: 20px; border-radius: 8px;">
+            <h4>Step 2: Apply</h4>
+            <p>Fill out the adoption application and provide your information.</p>
+        </div>
+        <div class="step" style="flex: 1; background: #f8f9fa; padding: 20px; border-radius: 8px;">
+            <h4>Step 3: Meet & Greet</h4>
+            <p>Meet your new dog and ensure they are a good fit for your home!</p>
+        </div>
+    </div>
+</div>
+
+<!--FAQ-->
+<div class="faq-section" style="text-align: center; background: #e9ecef; padding: 50px 0;">
+    <h3>Frequently Asked Questions</h3>
+    <div class="faq-item">
+        <h4>Do you charge adoption fees?</h4>
+        <p>Yes, we have a nominal adoption fee to cover the costs of vaccinations, spaying/neutering, and other expenses.</p>
+    </div>
+    <div class="faq-item">
+        <h4>Can I adopt a dog if I live in an apartment?</h4>
+        <p>Yes, as long as the dog is a good fit for apartment living, we encourage adoption from all types of living situations!</p>
+    </div>
+</div>
+<!--Success stories-->
+<!-- Success Story Section -->
+<div class="success-story">
+    <h2 class="section-title">Success Story: A New Beginning</h2>
+    <div class="story-content">
+        <img src="image/max.jpg" alt="Happy Dog with New Owner" class="story-image">
+        <div class="story-details">
+            <h3 class="dog-name">Meet Max!</h3>
+            <p class="story-text">
+                Max was abandoned at a local shelter, but after meeting with a loving family, he found his forever home! With patience and love, Max has become a joyful, playful companion. His new family shares their journey of giving Max a second chance at happiness.
+            </p>
+            <p><strong>Adopted By:</strong> Sarah & Tom, Happy Pet Owners</p>
+            <a href="/adopt" class="btn btn-primary">Read More Success Stories</a>
+        </div>
+    </div>
+</div>
+<style>
+    .success-story {
+        background-color: #f0f8ff;
+        padding: 40px;
+        margin: 20px auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 80%;
+        max-width: 1000px;
+    }
+
+    .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        color: #3b5998;
+        margin-bottom: 20px;
+    }
+
+    .story-content {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .story-image {
+        width: 45%;
+        height: auto;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+
+    .story-details {
+        width: 50%;
+        padding: 20px;
+    }
+
+    .dog-name {
+        font-size: 1.8rem;
+        color: #3b5998;
+        margin-bottom: 10px;
+    }
+
+    .story-text {
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #555;
+        margin-bottom: 15px;
+    }
+
+    .adopt-button {
+        display: inline-block;
+        background-color: #3b5998;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+
+        .adopt-button:hover {
+            background-color: #2d4373;
+        }
+
+</style>
+
+
+
+<!--Resources-->
+<div class="resources" style="text-align: center; padding: 50px 0;">
+    <h3>Helpful Resources</h3>
+    <ul style="list-style-type: none;">
+        <li>
+            <a href="https://woofz.academy/sex_4?cohort=woofz22_v3&lang=en&utm_source=googleadwords_int&utm_medium=cpc&utm_campaign=Woofz_Web_Search_Specific_08.11.23_%5Bwoofz22%5D_US_Broad_tCPA&ad_id=680132140754&adset_id=154144243094&campaign_id=20757819323&utm_term=tricks+to+train+your+dog&gad_source=1&gclid=CjwKCAiAjeW6BhBAEiwAdKltMn-Z-6mnn_Or4EK3TUs2RSeXOkyTIVKIuIlAXyOZvj47zTNlL2uc0BoCMaoQAvD_BwE&uuid=b1562afc-caba-45d7-81ca-7c078996cf42"
+               style="text-decoration: none; color: #007bff;">How to Train Your New Dog</a>
+        </li>
+        <li>
+            <a href="https://be.chewy.com/pet-parenting-pet-lovers-dog-adoption-checklist-what-you-need-to-know/"
+               style="text-decoration: none; color: #007bff;">Pet Adoption Checklist</a>
+        </li>
+    </ul>
+</div>
+
+
+<style>
+    #slider {
+        overflow: hidden;
+        width:500px;
+        height:500px;
+        margin: 0 auto;
+    }
+    #slider figure{
+        position: relative;
+        width: 500%;
+        margin: 0;
+        left: 0;
+        animation: 20s slideranimation infinite;
+    }
+    #slider figure img{
+        float: left;
+       
+
+       width:500px;
+       height: 500px;
+       object-fit: cover;
+    }
+
+  
+    @@keyframes slideranimation {
+        0%
+
+    {
+        left: 0;
+    }
+
+    27% {
+        left: 0;
+    }
+
+    32% {
+        left: -100%;
+    }
+
+    59% {
+        left: -100%;
+    }
+
+    64% {
+        left: -200%;
+    }
+
+    81% {
+        left: -200%;
+    }
+
+    100% {
+        left: 0;
+    }
+
+    }
+</style>
+<!--end image slider code-->
+
+
+
+
+
+
+<!-- the team code -->
+<div class="background">
+    <h2 style=" text-align: center">Our Team!</h2>
+    <div class="container team">
+        <div class="row">
+            <div class="card col-lg-3 col-md-3 col-sm-4 text-center">
+                <img class="card-img-top rounded-circle" src="/image/alex.jpg" alt="Card image">
+                <div class="card-body">
+                    <h4 class="card-title">Alex Nelson</h4>
+                    <p class="card-text">3rd Year Computer Science Student</p>
+                </div>
+            </div>
+            <div class="card col-lg-3 col-md-3 col-sm-4 text-center">
+                <img class="card-img-top rounded-circle" src="/image/zach.jpg" alt="Card image">
+                <div class="card-body">
+                    <h4 class="card-title">Zach Forkenbrock</h4>
+                    <p class="card-text">3rd Year Computer Science Student</p>
+                </div>
+            </div>
+            <div class="card col-lg-3 col-md-3 col-sm-4 text-center">
+                <img class="card-img-top rounded-circle" src="/image/alec.jpg" alt="Card image">
+                <div class="card-body">
+                    <h4 class="card-title">Alec Dreyer</h4>
+                    <p class="card-text">3rd Year Computer Science Student</p>
+                </div>
+            </div>
+            <div class="card col-lg-3 col-md-3 col-sm-4 text-center">
+                <img class="card-img-top rounded-circle" src="/image/michael.jpg" alt="Card image">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        Michael Toquam
+                    </h4>
+                    <p class="card-text">3rd Year Computer Science Student</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .background {
+        background: #dedec8;
+        padding: 4em 0;
+    }
+
+    .team {
+        color: #5e5e55;
+        padding: 0 180px;
+    }
+
+        .team .card-columns {
+            -webkit-column-count: 4;
+            -moz-column-count: 4;
+            column-count: 4;
+        }
+
+        .team .card {
+            background: none;
+            border: none;
+        }
+
+        .team .card-title {
+            font-size: 1.3rem;
+            margin-bottom: 0;
+            text-transform: uppercase;
+        }
+
+</style>
+<!--End team code-->
 

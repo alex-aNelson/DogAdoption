@@ -4,12 +4,14 @@
 @inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
 @inject NavigationManager NavigationManager
 
-<PageTitle>Create</PageTitle>
+<PageTitle>Adoption Application Blank</PageTitle>
 
-<h1>Create</h1>
 
-<h2>AdoptionApplication</h2>
+<h2 id="header">Adoption Application</h2>
 <hr />
+
+<div class="form-container">
+
 <div class="row">
     <div class="col-md-4">
         <EditForm method="post" Model="AdoptionApplication" OnValidSubmit="AddAdoptionApplication" FormName="create" Enhance>
@@ -50,13 +52,43 @@
     </div>
 </div>
 
-<div>
-    <a href="/adoptionapplications">Back to List</a>
+    <br />
+
+    <div>
+        <a href="/dogs" class="btn btn-primary">Back to List</a>
+    </div>
 </div>
 
+
+<style>
+    .form-container {
+        padding-left: 50px; /* Add padding to the left */
+    }
+
+    #header {
+        text-align: center;
+    }
+</style>
+
+
 @code {
+
+    [SupplyParameterFromQuery]
+    public int? DogID { get; set; }
+
+
     [SupplyParameterFromForm]
     private AdoptionApplication AdoptionApplication { get; set; } = new();
+
+    protected override void OnInitialized()
+    {
+        // If DogID is present in the query string, populate the AdoptionApplication.DogID property.
+        if (DogID.HasValue)
+        {
+            AdoptionApplication.DogID = DogID.Value;
+        }
+    }
+
 
     // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
     private async Task AddAdoptionApplication()
