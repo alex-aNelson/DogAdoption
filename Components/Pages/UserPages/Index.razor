@@ -15,6 +15,19 @@
         </div>
     </div>
 
+    <div class="row mb-4">
+        <!-- Search Form -->
+        <div class="col-12">
+            <form action="/users" method="get" class="d-flex gap-2">
+                <div class="input-group">
+                    <input type="search" class="form-control" placeholder="Search by Username" name="UsernameFilter" value="@UsernameFilter" />
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+                <a href="/users" class="btn btn-secondary">List All</a>
+            </form>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-12 text-end mb-3">
             <a class="btn btn-primary" href="users/create">Create New User</a>
@@ -23,7 +36,7 @@
 
     <div class="row">
         <div class="col-12">
-            <QuickGrid Class="table table-striped table-hover" Items="context.User">
+            <QuickGrid Class="table table-striped table-hover" Items="FilteredUsers">
                 <PropertyColumn Title="Username" Property="user => user.Username" />
                 <PropertyColumn Title="Password" Property="user => user.Password" />
                 <PropertyColumn Title="Is Admin" Property="user => user.IsAdmin" />
@@ -43,6 +56,12 @@
 
 @code {
     private DogAdoptionContext context = default!;
+    private IQueryable<User> FilteredUsers => context.User
+        .Where(u => string.IsNullOrEmpty(UsernameFilter) || u.Username.Contains(UsernameFilter));
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string? UsernameFilter { get; set; }
 
     protected override void OnInitialized()
     {
