@@ -1,0 +1,170 @@
+﻿@page "/shelterinformation"
+
+<style>
+
+    body{
+        background-color: #009879;
+    }
+
+    .link {
+        color: white;
+        font-weight: bold;
+        text-decoration: none;
+        margin-left: auto;
+        margin-right: auto;
+        transition: 200ms;
+    }
+    .link:hover {
+        text-decoration: underline;
+        transform: scale(1.1);
+    }
+
+    .first-shelter-div {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 50px;
+        border: none;
+        border-radius: 15px;
+        background-color: #009879;
+        padding: 25px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        width: 750px;
+        height: auto;
+    }
+
+    .second-shelter-div {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 50px;
+        border: none;
+        border-radius: 15px;
+        background-color: #009879;
+        padding: 25px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        width: 750px;
+        height: auto;
+    }
+
+    .third-shelter-div {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 60px;
+        border: none;
+        border-radius: 15px;
+        background-color: #009879;
+        padding: 25px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        width: 750px;
+        height: auto;
+    }
+
+    .contact-info {
+        display: flex;
+        align-content: center;
+        color: white;
+        font-weight: bold;
+        padding: 10px;
+        width: fit-content;
+    }
+
+    .content-title{
+        display: flex;
+        justify-content: center;
+        font-weight: bold;
+    }
+
+    .page-display{
+        display: flex;
+        justify-content: center;
+        padding: 50px;
+        flex-direction: column;
+    }
+
+    .shelter-image{
+        width: 700px;
+        height: auto;
+    }
+
+    .div-title{
+        font-weight: bold;
+        margin-left: auto;
+        margin-right: auto;
+        color: white;
+    }
+
+    .page-head{
+        font-weight: bold;
+        color: white;
+        margin-top: 40px;
+    }
+
+</style>
+
+    <div class="content-title">
+        <h3 class="page-head">Participating Shelters</h3>
+    </div>
+
+<div class="page-display">
+
+    <div class="first-shelter-div">
+        <h3 class="div-title">Homeward Animal Shelter</h3>
+
+        <img class="shelter-image" src="/image/animal_shelter.png" />
+
+        <a class="link" href="https://www.homewardonline.org/">Homeward Animal Shelter</a>
+
+        <p class="contact-info">1201 28th Avenue North</p>
+        <p class="contact-info">Fargo, ND 58102</p>
+        <p class="contact-info">Phone 701.239.0077</p>
+        <p class="contact-info">Email info@homewardonline.org</p>
+        <p class="contact-info">OPEN HOUSE HOURS:</p>
+        <p class="contact-info">Tues, Weds, Thurs & Fri from 4-7pm</p>
+        <p class="contact-info">Saturday from 2-6pm</p>
+        <p class="contact-info">BY APPOINTMENT ONLY:</p>
+        <p class="contact-info">Monday 11am-7pm</p>
+        <p class="contact-info">Tues, Weds, Thurs, Fri 11am-4pm</p>
+        <p class="contact-info">Saturday 10am-2pm</p>
+    </div>
+
+    <div class="second-shelter-div">
+        <h3 class="div-title">4 Luv of Dog</h3>
+
+        <img class="shelter-image" src="image/animal_shelter_2.png" />
+
+        <a class="link" href="https://www.4luvofdog.org/">4 Luv of Dog</a>
+
+        <p class="contact-info">1523 23rd St</p>
+        <p class="contact-info">Moorhead, MN 56560</p>
+        <p class="contact-info">Phone 701.205.0190</p>
+        <p class="contact-info">Email rehome@4luvofdog.org</p>
+        <p class="contact-info">Mon, Tues, Wed, Thurs & Fri from 12-7pm</p>
+        <p class="contact-info">Saturday from 9am-2pm</p>
+    </div>
+
+    <div class="third-shelter-div">
+        <h3 class="div-title">Pets R Inn</h3>
+
+        <img class="shelter-image" src="/image/animal_shelter_3.jpg" />
+
+        <a class="link" href="https://www.petsrinn.net/">Pets R Inn</a>
+
+        <p class="contact-info">West Acres Mall</p>
+        <p class="contact-info">Fargo, ND</p>
+        <p class="contact-info">Phone 701.746.1354</p>
+        <p class="contact-info">Email petsrinnfargo@gmail.com</p>
+        <p class="contact-info">Mon - Sat from 10am-8pm</p>
+        <p class="contact-info">Sun from 11am-6pm</p>
+    </div>
+</div>
+@code {
+
+}
