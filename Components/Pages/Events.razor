@@ -1,0 +1,110 @@
+﻿@page "/events"
+
+<PageTitle>Upcoming Events</PageTitle>
+
+<h1 style="text-align: center; color: #3b5998;">Join Us for Our Upcoming Events!</h1>
+
+<div class="events-container">
+    <div class="event">
+        <img src="image/dogFair.jpg" alt="Event 1" class="event-image">
+        <div class="event-details">
+            <h2 class="event-title">Dog Adoption Fair</h2>
+            <p class="event-description">
+                Join us for a day of fun, meet adorable dogs, and find your new best friend. The adoption fair will be held at our shelter with lots of dogs available for adoption.
+            </p>
+            <p><strong>Date:</strong> May 18, 2024</p>
+            <p><strong>Location:</strong> Adoption Shelter, 1640 Riverside Drive</p>
+            <a href="/dogs" class="event-button">Learn More & Adopt</a>
+        </div>
+    </div>
+
+    <div class="event">
+        <img src="image/Puppy_Training_Class.jpg" alt="Event 2" class="event-image">
+        <div class="event-details">
+            <h2 class="event-title">Puppy Training Workshop</h2>
+            <p class="event-description">
+                Learn the basics of puppy training, from housebreaking to teaching basic commands. Perfect for new pet owners or anyone considering adoption.
+            </p>
+            <p><strong>Date:</strong> February 10, 2024</p>
+            <p><strong>Location:</strong> Dog Training Center, 2500 Maple Street</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeKSqwPzcZ7jh9XGlNg-Tli-qN3OQqSOEUmQwhzSH5FNDMy0Q/viewform?usp=header" class="event-button">Register Now</a>
+        </div>
+    </div>
+
+    <div class="event">
+        <img src="image/dogspa.jpg" alt="Event 3" class="event-image">
+        <div class="event-details">
+            <h2 class="event-title">Pet Adoption & Wellness Day</h2>
+            <p class="event-description">
+                A day dedicated to both adopting dogs and providing free health check-ups for your current pets. Bring your dog for a wellness check and adopt a new one!
+            </p>
+            <p><strong>Date:</strong> March 22, 2024</p>
+            <p><strong>Location:</strong> Wellness Park, 5300 Oak Lane</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeKSqwPzcZ7jh9XGlNg-Tli-qN3OQqSOEUmQwhzSH5FNDMy0Q/viewform?usp=header" class="event-button">Find Out More</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .events-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        margin: 40px;
+    }
+
+    .event {
+        width: 300px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        background-color: #f9f9f9;
+        transition: transform 0.3s ease;
+    }
+
+        .event:hover {
+            transform: scale(1.05);
+        }
+
+    .event-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .event-details {
+        padding: 15px;
+    }
+
+    .event-title {
+        color: #3b5998;
+        font-size: 1.6rem;
+        margin-bottom: 10px;
+    }
+
+    .event-description {
+        font-size: 1rem;
+        margin-bottom: 15px;
+    }
+
+    .event-button {
+        display: inline-block;
+        background-color: #3b5998;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+        .event-button:hover {
+            background-color: #2d4373;
+        }
+</style>
+
+
+@code {
+
+}

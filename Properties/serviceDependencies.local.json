@@ -13,6 +13,13 @@
       "type": "mssql.local",
       "connectionId": "DogAdoptionDB",
       "dynamicId": null
+    },
+    "mssql3": {
+      "serviceConnectorResourceId": "",
+      "secretStore": "LocalSecretsFile",
+      "type": "mssql.local",
+      "connectionId": "con1",
+      "dynamicId": null
     }
   }
 }

@@ -1,7 +1,4 @@
 ﻿@page "/dogs"
-
-@rendermode InteractiveServer
-
 @using Microsoft.EntityFrameworkCore
 @using Microsoft.AspNetCore.Components.QuickGrid
 @using DogAdoption.Models
@@ -9,88 +6,246 @@
 @implements IAsyncDisposable
 @inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Available Dogs</PageTitle>
 
-<h1>Index</h1>
-
+<h1 id="header">Available Dogs</h1>
 <p>
     <a href="dogs/create">Create New</a>
 </p>
 
-<table class="content-table">
-    <thead>
-        <tr>
-            <th>Image:</th>
-            <th>Name:</th>
-            <th>Breed:</th>
-        </tr>
-    </thead>
-    @foreach(var item in myDogs){
-        <tr>
-            <td>
-                <img src=@item.ImageURL alt="myDog" style="width:150px; height:150px;" />
-            </td>
-            <td>
-                @item.DogName
-            </td>
-            <td>
-                @item.DogBreed
-            </td>
-            <td>
-                @item.DogWeight
-            </td>
-        </tr>
+<div id="process">
+    <h4>Available Dogs - Thank you for choosing adoption!</h4>
+    <p>
+        Please look below at the dogs currently available for adoption. In order to meet the dogs,
+        please fill out an adoption application and we will be in touch.
+    </p>
+    <p>
+        If you would like to see the dogs in the shelter, please stop in during open house hours,
+        which are Mondays - Thursday from 1 - 5pm.
+    </p>
+
+
+<br />
+<br />
+
+    <h4>
+        VIEW ALL OF OUR DOGS BELOW
+    </h4>
+    <P>
+        See a dog below you'd like to apply for? Click on that specific dog and click "Adopt Me" button
+    </P>
+</div>
+
+    
+
+<div id="form">
+<form action="/dogs" data-enhance>
+    <input type="search" name="NameFilter" />
+
+    <input type="submit" value="Search by Name" />
+</form>
+&nbsp;&nbsp;
+<form action="/dogs" data-enhance>
+    <input type="search" name="BreedFilter" />
+    <input type="submit" value="Search by Breed" />
+</form>
+<br />
+    <form action="/dogs" data-enhance>
+        <input type="number" name="AgeFilter" placeholder="Search by Age (less than)" />
+        <input type="submit" value="Search by Age" />
+    </form>
+</div>
+
+<style>
+
+    #process {
+        text-align: center; /* Centers all text inside the #process div */
+        margin: 0 auto; /* Centers the div itself horizontally */
+        width: 80%; /* Optional: You can adjust the width for better responsiveness */
     }
 
-    </table>
+    h4 {
+        color: #003366; /* Dark blue color for h4 elements */
+        font-size: 1.5rem; /* Optional: Adjust font size for h4 */
+    }
 
-    <style>
-        .content-table{
-            border-collapse: collapse;
-            margin: 35px 0;
-            min-width: 900px;
-        }
-        .content-table thead tr{
-            background-color: #009879;
-            color: whitesmoke;
-            text-align: left;
-            font-weight: bold;
-        }
-        .content-table th, .content-table td{
-            padding: 12px 15px;
-        }
-    </style>
+    p {
+        font-size: 1rem; /* Optional: Adjust font size for paragraphs */
+        line-height: 1.5; /* Optional: Add line height for better readability */
+    }
 
-    <QuickGrid Class="table" Items="context.Dog">
-        <PropertyColumn Property="dog => dog.ImageURL" Title ="Image" />
-        <PropertyColumn Property="dog => dog.DogName" />
-        <PropertyColumn Property="dog => dog.DogAge" />
-        <PropertyColumn Property="dog => dog.DogWeight" />
-        <PropertyColumn Property="dog => dog.DogBreed" />
-        <PropertyColumn Property="dog => dog.IsMale" />
-        <PropertyColumn Property="dog => dog.IsVaccinated" />
-        <PropertyColumn Property="dog => dog.IsNeutered" />
-        <PropertyColumn Property="dog => dog.Temperament" />
+    br {
+        margin-bottom: 20px; /* Optional: Adds spacing after the <br> elements */
+    }
 
+    #header{
+        text-align:center;
+    }
+    #form {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centers forms horizontally */
+        margin-top: 20px; /* Adds spacing from the top of the page */
+        gap: 10px; /* Adds spacing between the two forms */
+    }
 
-        <TemplateColumn Context="dog">
-            <template>
-                <img src="@dog.ImageURL" alt="dog image" style="width: 500px; height : 500px;" />
-            </template>
-            <a href="@($"dogs/edit?dogid={dog.DogID}")">Edit</a> |
-            <a href="@($"dogs/details?dogid={dog.DogID}")">Details</a> |
-            <a href="@($"dogs/delete?dogid={dog.DogID}")">Delete</a>
-        </TemplateColumn>
-    </QuickGrid>
+    form {
+        display: flex;
+        gap: 5px; /* Adds spacing between input fields and buttons */
+    }
 
-    @code {
-        private DogAdoptionContext context = default!;
-        public List<Dog> myDogs;
-        protected override void OnInitialized()
+    body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh; /* Full height viewport */
+        font-family: Arial, sans-serif;
+    }
+</style>
+
+<br />
+<br />
+<table class="content-table">
+    <thead> 
+        <tr> 
+            <th>Image:</th> 
+            <th>Name:</th> 
+            <th>Breed:</th> 
+            <th>Weight:</th>
+            <th>Vaccinated:</th>
+            <th>Neutered:</th>
+        </tr> 
+    </thead> 
+    <tbody> 
+        @foreach (var item in DogList)
         {
-            context = DbFactory.CreateDbContext();
-            myDogs = context.Dog.ToList();
+            <tr>
+                <td>
+                    <img src=@item.ImageURL alt="myDog" style="width:150px; height:150px;" />
+                </td>
+                <td>
+                    @item.DogName
+                </td>
+                <td>
+                    @item.DogBreed
+                </td>
+                <td>
+                    @item.DogWeight
+                </td>
+
+                <td>
+                    @item.IsVaccinated
+                </td>
+                <td>
+                    @item.IsNeutered
+                </td>
+                <td>
+                    <a href="@($"/dogs/details?dogid={item.DogID}")" class="btn btn-primary">Details</a>
+                </td>
+                <td>
+                    <a href="@($"/adoptionapplications/create?dogid={item.DogID}")" class="btn btn-primary">Adopt Me!</a>
+                </td>
+
+            </tr>
         }
+    </tbody> 
+
+</table>
+
+<style>
+    .content-table {
+    border-collapse: collapse;
+    min-width: 900px;
+        margin: 0 auto; 
+    }
+
+    .content-table-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px; 
+        width: 100%; 
+    }
+
+    .content-table thead tr {
+    background-color: #009879;
+    color: whitesmoke;
+    text-align: left;
+    font-weight: bold;
+    }
+
+    .content-table th, .content-table td {
+    padding: 12px 15px;
+    }
+
+    .content-table tbody tr {
+    border-bottom: 1px solid #dddddddd
+    }
+
+    .content-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3
+    }
+
+    .content-table tbody tr: last-of-type {
+    border-bottom: 2px solid #009879;
+    }
+</style>
+
+<QuickGrid Class="table" Items="context.Dog">
+    <PropertyColumn Property="dog => dog.ImageURL" Title="Image" />
+
+    <PropertyColumn Property="dog => dog.DogName" />
+    <PropertyColumn Property="dog => dog.DogAge" />
+    <PropertyColumn Property="dog => dog.DogWeight" sortable="true" />
+    <PropertyColumn Property="dog => dog.DogBreed" />
+    <PropertyColumn Property="dog => dog.IsMale" />
+    <PropertyColumn Property="dog => dog.IsVaccinated" />
+    <PropertyColumn Property="dog => dog.IsNeutered" />
+    <PropertyColumn Property="dog => dog.Temperament" />
+
+
+    <TemplateColumn Context="dog">
+        <template>
+            <img src="@dog.ImageURL" alt="dog image" style="width: 500px; height : 500px;" />
+        </template>
+        <a href="@($"dogs/edit?dogid={dog.DogID}")">Edit</a> |
+        <a href="@($"dogs/details?dogid={dog.DogID}")">Details</a> |
+        <a href="@($"dogs/delete?dogid={dog.DogID}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string? NameFilter { get; set; }
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string? BreedFilter { get; set; }
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public int? AgeFilter { get; set; }
+
+
+    // public IQueryable<Dog> DogList => context.Dog
+    //     .Where(d => (string.IsNullOrEmpty(NameFilter) || d.DogName!.Contains(NameFilter))
+    //              && (string.IsNullOrEmpty(BreedFilter) || d.DogBreed!.Contains(BreedFilter)));
+
+    public IQueryable<Dog> DogList => context.Dog
+       .Where(d => (string.IsNullOrEmpty(NameFilter) || d.DogName!.Contains(NameFilter))
+                && (string.IsNullOrEmpty(BreedFilter) || d.DogBreed!.Contains(BreedFilter))
+                && (!AgeFilter.HasValue || d.DogAge < AgeFilter.Value));
+    private DogAdoptionContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+
+    }
+
+    
+
 
     public async ValueTask DisposeAsync() => await context.DisposeAsync();
 }
