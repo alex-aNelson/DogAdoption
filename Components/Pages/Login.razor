@@ -1,0 +1,50 @@
+﻿@page "/login"
+@rendermode InteractiveServer
+
+@using DogAdoption.Models
+
+<h3>Login</h3>
+
+<!--
+
+<div>
+    <form action="/movies" data-enhance>
+        <input type="username" name="usernameFilter" placeholder="Username"/>
+        <input type="password" name="passwordFilter" placeholder="Password"/>
+        <input type="submit" value="Search" />
+    </form>
+</div>
+
+-->
+
+<EditForm Model="user" OnSubmit="HandleLogin">
+    <div class="form-group">
+        <label for="username">Username</label>
+        <InputText id="username" @bind-Value="user.Username" class="form-control"></InputText>
+        <!--Allows user to enter username. Also allows the user object to be accessed in the code block-->
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password</label>
+        <InputText id="password" @bind-Value="user.Password" type="password" class="form-control"></InputText>
+        <!--Allows user to enter password.-->
+    </div>
+
+    <div class="form-group">
+        <label for="birthdate">Date of Birth</label>
+        <InputDate id="birthdate" @bind-Value="user.DateOfBirth" class="form-control"></InputDate>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+    <!--Log in Button-->
+</EditForm>
+
+@code {
+    private User user = new User();
+
+
+    private void HandleLogin()
+    {
+        Console.WriteLine("Log me in");
+    }
+}
