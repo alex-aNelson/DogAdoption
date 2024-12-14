@@ -4,6 +4,7 @@ using DogAdoption.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DogAdoption.Migrations
 {
     [DbContext(typeof(DogAdoptionContext))]
-    partial class DogAdoptionContextModelSnapshot : ModelSnapshot
+    [Migration("20241211202228_mssql.local_migration_745")]
+    partial class mssqllocal_migration_745
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -162,34 +165,6 @@ namespace DogAdoption.Migrations
                     b.HasKey("PaymentId");
 
                     b.ToTable("Payment");
-                });
-
-            modelBuilder.Entity("DogAdoption.Models.Messages", b =>
-                {
-                    b.Property<int>("MessageID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MessageID"));
-
-                    b.Property<string>("Contents")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("Header")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("MessageID");
-
-                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("DogAdoption.Models.User", b =>

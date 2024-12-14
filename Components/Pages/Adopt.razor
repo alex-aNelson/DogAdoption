@@ -1,0 +1,154 @@
+﻿@page "/adopt"
+<h1 style="text-align:center">Success Stories: Our Happy Tails</h1>
+
+<!-- Success Story 1 -->
+<div class="success-story">
+    <h2 class="section-title">Success Story: A New Beginning</h2>
+    <div class="story-content">
+        <img src="image/max.jpg" alt="Happy Dog with New Owner" class="story-image">
+        <div class="story-details">
+            <h3 class="dog-name">Meet Max!</h3>
+            <p class="story-text">
+                Max was abandoned at a local shelter, but after meeting with a loving family, he found his forever home! With patience and love, Max has become a joyful, playful companion. His new family shares their journey of giving Max a second chance at happiness.
+            </p>
+            <p><strong>Adopted By:</strong> Sarah & Tom, Happy Pet Owners</p>
+        </div>
+    </div>
+    <!-- Success Story 2 -->
+    <div class="success-story">
+        <h2 class="section-title">Success Story: A Tail of Triumph</h2>
+        <div class="story-content">
+            <img src="image/bella.jpg" alt="Happy Dog with New Owner" class="story-image">
+            <div class="story-details">
+                <h3 class="dog-name">Meet Bella!</h3>
+                <p class="story-text">
+                    Bella was found wandering the streets, scared and alone. But after being brought to our shelter and given time to heal, she found a wonderful family who gave her all the love she deserved. Bella now enjoys daily walks and lots of cuddles!
+                </p>
+                <p><strong>Adopted By:</strong> John & Rachel, Devoted Pet Parents</p>
+            </div>
+        </div>
+    </div>
+    <!-- Success Story 3 -->
+    <div class="success-story">
+        <h2 class="section-title">Success Story: From Shelter to Forever</h2>
+        <div class="story-content">
+            <img src="image/charlie.jpg" alt="Happy Dog with New Owner" class="story-image">
+            <div class="story-details">
+                <h3 class="dog-name">Meet Charlie!</h3>
+                <p class="story-text">
+                    Charlie was adopted from our shelter after being rescued from a neglectful situation. He’s now living the good life with his new family, who love him dearly. His transformation from a timid pup to a confident dog is an inspiration to all of us!
+                </p>
+                <p><strong>Adopted By:</strong> Amanda & Greg, Proud Dog Owners</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Call to Action: Adoption Page Link -->
+<div class="adopt-call-to-action">
+    <h3>Ready to Give a Dog a New Home?</h3>
+    <p>If you’re ready to adopt, please visit our adoption page to learn more about our available dogs and start your journey toward giving a dog a forever home!</p>
+    <a href="/dogs" class="btn btn-primary">View Available Dogs</a>
+</div>
+<style>
+    .success-story {
+        background-color: #f9f9f9;
+        padding: 30px;
+        margin: 20px auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 80%;
+        max-width: 1000px;
+    }
+
+    .section-title {
+        text-align: center;
+        font-size: 2rem;
+        color: #3b5998;
+        margin-bottom: 20px;
+    }
+
+    .story-content {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .story-image {
+        width: 45%;
+        height: auto;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+
+    .story-details {
+        width: 50%;
+        padding: 20px;
+    }
+
+    .dog-name {
+        font-size: 1.8rem;
+        color: #3b5998;
+        margin-bottom: 10px;
+    }
+
+    .story-text {
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #555;
+        margin-bottom: 15px;
+    }
+
+    .adopt-button {
+        display: inline-block;
+        background-color: #3b5998;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+
+        .adopt-button:hover {
+            background-color: #2d4373;
+        }
+
+    .adopt-call-to-action {
+        text-align: center;
+        padding: 40px;
+        background-color: #e4e7eb;
+        margin: 40px auto;
+        border-radius: 8px;
+        width: 80%;
+        max-width: 800px;
+    }
+
+        .adopt-call-to-action h3 {
+            font-size: 1.8rem;
+            color: #3b5998;
+        }
+
+        .adopt-call-to-action p {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .adopt-call-to-action .adopt-button {
+            background-color: #28a745;
+            padding: 14px 30px;
+        }
+
+            .adopt-call-to-action .adopt-button:hover {
+                background-color: #218838;
+            }
+
+</style>
+
+
+@code {
+}
+
+

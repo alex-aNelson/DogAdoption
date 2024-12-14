@@ -14,7 +14,7 @@
     },
     "mssql3": {
       "type": "mssql",
-      "connectionId": "ConnectionString",
+      "connectionId": "con1",
       "dynamicId": null
     }
   }
