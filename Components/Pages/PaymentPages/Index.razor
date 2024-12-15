@@ -1,48 +1,148 @@
 ﻿@page "/payments"
 @using Microsoft.EntityFrameworkCore
-@using Microsoft.AspNetCore.Components.QuickGrid
 @using DogAdoption.Models
 @using DogAdoption.Data
 @implements IAsyncDisposable
 @inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Manage Payments</PageTitle>
 
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-12">
-            <h1 class="text-center mb-4">Manage Payments</h1>
-        </div>
-    </div>
+<h1 id="header">Manage Payments</h1>
 
-    <div class="row">
-        <div class="col-12 text-end mb-3">
-            <a class="btn btn-primary" href="payments/create">Create New Payment</a>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-12">
-            <QuickGrid Class="table table-striped table-hover" Items="context.Payment">
-                <PropertyColumn Title="Card Type" Property="payment => payment.CardType" />
-                <PropertyColumn Title="Card Number" Property="payment => payment.CardNumber" />
-                <PropertyColumn Title="Card Holder Name" Property="payment => payment.CardHolderName" />
-                <PropertyColumn Title="Expiration Date" Property="payment => payment.ExpirationDate" />
-                <PropertyColumn Title="Security Code" Property="payment => payment.SecurityCode" />
-
-                <TemplateColumn Title="Actions" Context="payment">
-                    <div class="btn-group" role="group">
-                        <a class="btn btn-sm btn-warning" href="@($"payments/edit?paymentid={payment.PaymentId}")">Edit</a>
-                        <a class="btn btn-sm btn-info" href="@($"payments/details?paymentid={payment.PaymentId}")">Details</a>
-                        <a class="btn btn-sm btn-danger" href="@($"payments/delete?paymentid={payment.PaymentId}")">Delete</a>
-                    </div>
-                </TemplateColumn>
-            </QuickGrid>
-        </div>
-    </div>
+<div id="process">
+    <p>
+        Below, you can view and manage all payment records. Use the search functionality to filter
+        the payments by card type or cardholder name.
+    </p>
+    <p>
+        To add a new payment record, click on "Create New Payment" below.
+    </p>
 </div>
 
+<br />
+<br />
+
+<div id="form">
+    <form action="/payments" data-enhance>
+        <input type="search" name="CardHolderNameFilter" placeholder="Search by Cardholder Name" />
+        <input type="submit" value="Search" />
+    </form>
+</div>
+
+<br />
+<br />
+
+<table class="content-table">
+    <thead>
+        <tr>
+            <th>Card Type:</th>
+            <th>Card Number:</th>
+            <th>Card Holder Name:</th>
+            <th>Expiration Date:</th>
+            <th>Security Code:</th>
+            <th>Actions:</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var payment in PaymentList)
+        {
+            <tr>
+                <td>@payment.CardType</td>
+                <td>@payment.CardNumber</td>
+                <td>@payment.CardHolderName</td>
+                <td>@payment.ExpirationDate</td>
+                <td>@payment.SecurityCode</td>
+                <td>
+                    <a href="@($"payments/details?paymentid={payment.PaymentId}")" class="btn btn-info">Details</a>
+                    <a href="@($"payments/edit?paymentid={payment.PaymentId}")" class="btn btn-warning">Edit</a>
+                    <a href="@($"payments/delete?paymentid={payment.PaymentId}")" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    #process {
+        text-align: center;
+        margin: 0 auto;
+        width: 80%;
+    }
+
+    h4 {
+        color: #003366;
+        font-size: 1.5rem;
+    }
+
+    p {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    br {
+        margin-bottom: 20px;
+    }
+
+    #header {
+        text-align: center;
+    }
+
+    #form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+        gap: 10px;
+    }
+
+    form {
+        display: flex;
+        gap: 5px;
+    }
+
+    .content-table {
+        border-collapse: collapse;
+        min-width: 900px;
+        margin: 0 auto;
+    }
+
+    .content-table thead tr {
+        background-color: #009879;
+        color: whitesmoke;
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .content-table th, .content-table td {
+        padding: 12px 15px;
+    }
+
+    .content-table tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+
+    .content-table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+
+    .content-table tbody tr:last-of-type {
+        border-bottom: 2px solid #009879;
+    }
+</style>
+
 @code {
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string? CardTypeFilter { get; set; }
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string? CardHolderNameFilter { get; set; }
+
+    public IQueryable<Payment> PaymentList => context.Payment
+        .Where(p => (string.IsNullOrEmpty(CardTypeFilter) || p.CardType!.Contains(CardTypeFilter))
+                 && (string.IsNullOrEmpty(CardHolderNameFilter) || p.CardHolderName!.Contains(CardHolderNameFilter)));
+
     private DogAdoptionContext context = default!;
 
     protected override void OnInitialized()
@@ -52,4 +152,3 @@
 
     public async ValueTask DisposeAsync() => await context.DisposeAsync();
 }
-

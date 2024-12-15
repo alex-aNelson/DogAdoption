@@ -1,6 +1,31 @@
 ﻿@page "/admin"
-<h3>Admin</h3>
+@using Microsoft.AspNetCore.Components
+
+<PageTitle>Admin Dashboard</PageTitle>
+
+<div class="container mt-5">
+    <!-- Header -->
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1 class="mb-4">Admin Dashboard</h1>
+        </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="row justify-content-center">
+        <div class="col-md-4 mb-3">
+            <a href="/dogsedit" class="btn btn-primary btn-block w-100">Dog Edit</a>
+        </div>
+        <div class="col-md-4 mb-3">
+            <a href="/users" class="btn btn-primary btn-block w-100">Customers</a>
+        </div>
+        <div class="col-md-4 mb-3">
+            <a href="/adoptionapplications" class="btn btn-secondary btn-block w-100">Adoption Applications</a>
+        </div>
+        
+    </div>
+</div>
 
 @code {
-
+    // This section remains unchanged
 }
