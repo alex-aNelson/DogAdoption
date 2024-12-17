@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Components\Pages\PaymentPages\CardList.razor" />
+    <Content Remove="Components\Pages\PaymentPages\displayList.razor" />
     <Content Remove="Components\Pages\UserPages\Customer.razor" />
   </ItemGroup>
 
