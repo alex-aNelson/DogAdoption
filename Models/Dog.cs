@@ -16,7 +16,7 @@ namespace DogAdoption.Models
 
         [Required]
         [Range(1, 200, ErrorMessage = "Dog weight must be between 1 and 200 kg.")]
-        public double DogWeight { get; set; } // DogWeight is required and non-nullable
+        public decimal DogWeight { get; set; } // DogWeight is required and non-nullable
 
         [Required]
         [StringLength(100, ErrorMessage = "Dog breed description cannot exceed 100 characters.")]
