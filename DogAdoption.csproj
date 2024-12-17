@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Components\Pages\UserPages\Customer.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\image\animal_shelter.png" />
     <None Include="wwwroot\image\animal_shelter_2.png" />
     <None Include="wwwroot\image\animal_shelter_3.jpg" />
