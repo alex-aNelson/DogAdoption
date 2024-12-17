@@ -16,6 +16,8 @@ namespace DogAdoption.Models
 
         public bool IsAdmin { get; set; } = false; // Defaults to false if not provided
 
+
+
         // Add a DateOfBirth property
         [Required]
         public DateTime DateOfBirth { get; set; }
@@ -38,5 +40,8 @@ namespace DogAdoption.Models
                 return Age >= 18;
             }
         }
+
+
     }
+
 }

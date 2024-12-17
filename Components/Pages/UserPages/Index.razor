@@ -1,33 +1,142 @@
 ﻿@page "/users"
 @using Microsoft.EntityFrameworkCore
-@using Microsoft.AspNetCore.Components.QuickGrid
 @using DogAdoption.Models
 @using DogAdoption.Data
 @implements IAsyncDisposable
 @inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Manage Users</PageTitle>
 
-<h1>Index</h1>
+<h1 id="header">Manage Users</h1>
 
-<p>
-    <a href="users/create">Create New</a>
-</p>
+<div id="process">
+    <h4>User Management</h4>
+    <p>
+        Below, you can view and manage all user records. Use the search functionality to filter
+        the users by username.
+    </p>
+    <p>
+        To add a new user record, click on "Create New User" below.
+    </p>
+</div>
 
-<QuickGrid Class="table" Items="context.User">
-    <PropertyColumn Property="user => user.Username" />
-    <PropertyColumn Property="user => user.Password" />
-    <PropertyColumn Property="user => user.IsAdmin" />
-    <PropertyColumn Property="user => user.DateOfBirth" />
+<br />
+<br />
 
-    <TemplateColumn Context="user">
-        <a href="@($"users/edit?userid={user.UserID}")">Edit</a> |
-        <a href="@($"users/details?userid={user.UserID}")">Details</a> |
-        <a href="@($"users/delete?userid={user.UserID}")">Delete</a>
-    </TemplateColumn>
-</QuickGrid>
+<div id="form">
+    <form action="/users" data-enhance>
+        <input type="search" name="UsernameFilter" placeholder="Search by Username" value="@UsernameFilter" />
+        <input type="submit" value="Search" />
+    </form>
+</div>
+
+<br />
+<br />
+
+<table class="content-table">
+    <thead>
+        <tr>
+            <th>Username:</th>
+            <th>Password:</th>
+            <th>Is Admin:</th>
+            <th>Date of Birth:</th>
+            <th>Actions:</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in FilteredUsers)
+        {
+            <tr>
+                <td>@user.Username</td>
+                <td>@user.Password</td>
+                <td>@user.IsAdmin</td>
+                <td>@user.DateOfBirth</td>
+                <td>
+                    <a href="@($"users/details?userid={user.UserID}")" class="btn btn-info">Details</a>
+                    <a href="@($"users/edit?userid={user.UserID}")" class="btn btn-warning">Edit</a>
+                    <a href="@($"users/delete?userid={user.UserID}")" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    #process {
+        text-align: center;
+        margin: 0 auto;
+        width: 80%;
+    }
+
+    h4 {
+        color: #003366;
+        font-size: 1.5rem;
+    }
+
+    p {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    br {
+        margin-bottom: 20px;
+    }
+
+    #header {
+        text-align: center;
+    }
+
+    #form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+        gap: 10px;
+    }
+
+    form {
+        display: flex;
+        gap: 5px;
+    }
+
+    .content-table {
+        border-collapse: collapse;
+        min-width: 900px;
+        margin: 0 auto;
+    }
+
+    .content-table thead tr {
+        background-color: #009879;
+        color: whitesmoke;
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .content-table th, .content-table td {
+        padding: 12px 15px;
+    }
+
+    .content-table tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+
+    .content-table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+
+    .content-table tbody tr:last-of-type {
+        border-bottom: 2px solid #009879;
+    }
+</style>
 
 @code {
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string? UsernameFilter { get; set; }
+
+    public IQueryable<User> FilteredUsers => context.User
+        .Where(u => string.IsNullOrEmpty(UsernameFilter) || u.Username.Contains(UsernameFilter));
+
     private DogAdoptionContext context = default!;
 
     protected override void OnInitialized()
@@ -36,4 +145,5 @@
     }
 
     public async ValueTask DisposeAsync() => await context.DisposeAsync();
+
 }
