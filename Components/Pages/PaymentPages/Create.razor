@@ -69,6 +69,6 @@
         using var context = DbFactory.CreateDbContext();
         context.Payment.Add(Payment);
         await context.SaveChangesAsync();
-        NavigationManager.NavigateTo("/payments");
+        NavigationManager.NavigateTo("/");
     }
 }

@@ -1,0 +1,47 @@
+﻿@page "/payments/paymentList"
+@using DogAdoption.Models
+@using System.Collections.Generic
+
+<table class="content-table">
+    <thead>
+        <tr>
+            <th>Card Type:</th>
+            <th>Card Number:</th>
+            <th>Card Holder Name:</th>
+            <th>Expiration Date:</th>
+            <th>Security Code:</th>
+            <th>Actions:</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Payments?.Any() == true)
+        {
+            @foreach (var payment in Payments)
+            {
+                <tr>
+                    <td>@payment.CardType</td>
+                    <td>@payment.CardNumber</td>
+                    <td>@payment.CardHolderName</td>
+                    <td>@payment.ExpirationDate</td>
+                    <td>@payment.SecurityCode</td>
+                    <td>
+                        <a href="@($"payments/details?paymentid={payment.PaymentId}")" class="btn btn-info">Details</a>
+                        <a href="@($"payments/edit?paymentid={payment.PaymentId}")" class="btn btn-warning">Edit</a>
+                        <a href="@($"payments/delete?paymentid={payment.PaymentId}")" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="6" style="text-align: center;">No cards available.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter]
+    public List<Payment> Payments { get; set; } = new();
+}
