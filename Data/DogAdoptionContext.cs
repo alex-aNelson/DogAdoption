@@ -19,5 +19,6 @@ namespace DogAdoption.Data
         public DbSet<DogAdoption.Models.AdoptionApplication> AdoptionApplication { get; set; } = default!;
         public DbSet<DogAdoption.Models.AdoptionPosting> AdoptionPosting { get; set; } = default!;
         public DbSet<DogAdoption.Models.Payment> Payment { get; set; } = default!;
+        public DbSet<DogAdoption.Models.Messages> Messages { get; set; } = default!;
     }
 }
