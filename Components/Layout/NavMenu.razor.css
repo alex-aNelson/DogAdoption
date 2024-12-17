@@ -16,20 +16,15 @@
 }
 
 .nav-link {
-    transition: 150ms;
     margin-left: 20px;
     margin-right: 20px;
     width: auto;
-    height: 50px;
     color: black !important;
 }
 .nav-link:hover {
-    background-color: #009879;
-    border: none;
-    border-radius: 15px;
-    transform: scale(1.2);
-    }
+    text-decoration: underline;
+    text-decoration-color: #009879;
+}
 .nav-link:active {
-    background-color: aquamarine;
-    transform: scale(1.0);
+    text-decoration-color: black;
 }
