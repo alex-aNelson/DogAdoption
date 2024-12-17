@@ -8,11 +8,7 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1>Index</h1>
-
-<p>
-    <a href="messages/create">Create New</a>
-</p>
+<h1>Messages</h1>
 
 <QuickGrid Class="table" Items="context.Messages">
     <PropertyColumn Property="messages => messages.Username" />
@@ -25,6 +21,8 @@
         <a href="@($"messages/delete?messageid={messages.MessageID}")">Delete</a>
     </TemplateColumn>
 </QuickGrid>
+
+<a href="/admin">Back to admin dashboard</a>
 
 @code {
     private DogAdoptionContext context = default!;
