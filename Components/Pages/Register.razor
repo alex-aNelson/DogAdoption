@@ -1,0 +1,83 @@
+﻿@page "/register"
+
+@inject NavigationManager NavigationManager
+
+@using Microsoft.EntityFrameworkCore
+@using DogAdoption.Models
+@using System.Diagnostics
+@inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
+@inject DogAdoption.Data.DogAdoptionContext DbContext
+@inject NavigationManager NavigationManager
+
+<PageTitle>Register an Account</PageTitle>
+
+<h3>Register</h3>
+
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="User" OnValidSubmit="AddUser" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert" />
+            <div class="mb-3">
+                <label for="username" class="form-label">Username:</label>
+                <InputText id="username" @bind-Value="User.Username" class="form-control" aria-required="true" />
+                <ValidationMessage For="() => User.Username" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password:</label>
+                <InputText id="password" @bind-Value="User.Password" class="form-control" aria-required="true" />
+                <ValidationMessage For="() => User.Password" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="confirmPassword" class="form-label">Confirm Password:</label>
+                <InputText id="confirmPassword" @bind-Value="ConfirmPassword" class="form-control" aria-required="true" />
+                @if (!string.IsNullOrEmpty(_confirmPasswordErrorMessage))
+                {
+                    <span class="text-danger">@_confirmPasswordErrorMessage</span>
+                }
+            </div>
+            <div class="mb-3">
+                <label for="isadmin" class="form-label">IsAdmin:</label>
+                <InputCheckbox id="isadmin" @bind-Value="User.IsAdmin" class="form-check-input" />
+                <ValidationMessage For="() => User.IsAdmin" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="dateofbirth" class="form-label">DateOfBirth:</label>
+                <InputDate id="dateofbirth" @bind-Value="User.DateOfBirth" class="form-control" aria-required="true" />
+                <ValidationMessage For="() => User.DateOfBirth" class="text-danger" />
+            </div>
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/login">Back to Login</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private User User { get; set; } = new();
+
+    private string ConfirmPassword { get; set; } = string.Empty;
+    private string? _confirmPasswordErrorMessage;
+
+    private async Task AddUser()
+    {
+        _confirmPasswordErrorMessage = null;
+        Debug.WriteLine($"User.Password: {User.Password}, ConfirmPassword: {ConfirmPassword}");
+
+        //Checks to see if passwords match
+        if (User.Password != ConfirmPassword)
+        {
+            _confirmPasswordErrorMessage = "Passwords do not match";
+            return;
+        }
+
+        using var context = DbFactory.CreateDbContext();
+        context.User.Add(User);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/users");
+    }
+    
+}

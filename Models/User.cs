@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DogAdoption.Components.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace DogAdoption.Models
 {
@@ -8,6 +9,7 @@ namespace DogAdoption.Models
 
         [Required]
         [StringLength(100, ErrorMessage = "Username cannot exceed 100 characters.")]
+        [UniqueUsername]
         public string Username { get; set; } = null!; // Username is required and has a 100-character limit
 
         [Required]
@@ -18,10 +20,8 @@ namespace DogAdoption.Models
 
         // Add a DateOfBirth property
         [Required]
+        [Underage]
         public DateTime DateOfBirth { get; set; }
-
-        // Calculated age property
-        [Range(18, int.MaxValue, ErrorMessage = "You must be at least 18 years old.")]
         public int Age
         {
             get
