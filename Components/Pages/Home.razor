@@ -323,6 +323,34 @@
 </style>
 <!--End team code-->
 
-<a href="/messages/create">
-    <button class="create-btn">Send us a message</button>
-</a>
+<div class="send-message-btn-div">
+    <a href="/messages/create">
+        <button class="create-btn">Send us a message</button>
+    </a>
+</div>
+
+<style>
+    .send-message-btn-div{
+        display: flex;
+        justify-content: center;
+    }
+
+    .create-btn{
+        margin-top: 30px;
+        margin-bottom: 30px;
+        background-color: #009879;
+        padding: 20px;
+        border: none;
+        border-radius: 15px;
+        color: white;
+        font-weight: bold;
+        transition: 150ms;
+    }
+    .create-btn:hover{
+        transform: scale(1.3);
+    }
+    .create-btn:active{
+        transform: scale(1.1);
+    }
+        
+</style>
