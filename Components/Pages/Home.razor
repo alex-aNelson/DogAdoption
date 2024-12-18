@@ -7,13 +7,17 @@
 <div id="slida">
 <div id="slider">
     <figure>
-        <a href="/dogs">
-    <img src="image/Available Dogs.jpg" />
+    <a href="/dogs">
+        <img src="image/Available Dogs.jpg" />
     </a>
+
     <a href="/events">
-    <img src="image/eventsss.jpg" />
+        <img src="image/eventsss.jpg" />
     </a>
-    <img src="image/dogC.jpg" />
+
+    <a href="/shelterinformation">
+        <img src="image/participatingSheltersText.jpg" />
+    </a>
     </figure>
 </div>
 </div>
@@ -68,6 +72,7 @@
             <p>Meet your new dog and ensure they are a good fit for your home!</p>
         </div>
     </div>
+    <a class="info-link" href="/AdoptionPolicy">Adoption Policy</a>
 </div>
 
 <!--FAQ-->
@@ -159,10 +164,26 @@
         margin-top: 20px;
     }
 
-        .adopt-button:hover {
-            background-color: #2d4373;
-        }
+    .adopt-button:hover {
+        background-color: #2d4373;
+    }
 
+    .info-link {
+        margin-left: auto;
+        margin-right: auto;
+        color: black;
+        font-weight: bold;
+        text-decoration: none;
+    }
+    .info-link:hover{
+        color: black;
+        text-decoration: underline;
+        text-decoration-color: #009879;
+    }
+
+    .steps{
+        margin-bottom: 50px;
+    }
 </style>
 
 
@@ -280,7 +301,7 @@
                     <h4 class="card-title">
                         Michael Toquam
                     </h4>
-                    <p class="card-text">3rd Year Computer Science Student</p>
+                    <p class="card-text">2nd Year Computer Science Student</p>
                 </div>
             </div>
         </div>
@@ -319,3 +340,34 @@
 </style>
 <!--End team code-->
 
+<div class="send-message-btn-div">
+    <a href="/messages/create">
+        <button class="create-btn">Send us a message</button>
+    </a>
+</div>
+
+<style>
+    .send-message-btn-div{
+        display: flex;
+        justify-content: center;
+    }
+
+    .create-btn{
+        margin-top: 30px;
+        margin-bottom: 30px;
+        background-color: #009879;
+        padding: 20px;
+        border: none;
+        border-radius: 15px;
+        color: white;
+        font-weight: bold;
+        transition: 150ms;
+    }
+    .create-btn:hover{
+        transform: scale(1.3);
+    }
+    .create-btn:active{
+        transform: scale(1.1);
+    }
+        
+</style>

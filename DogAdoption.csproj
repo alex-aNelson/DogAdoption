@@ -8,6 +8,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Components\Pages\PaymentPages\CardList.razor" />
+    <Content Remove="Components\Pages\PaymentPages\displayList.razor" />
+    <Content Remove="Components\Pages\UserPages\Customer.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\image\animal_shelter.png" />
+    <None Include="wwwroot\image\animal_shelter_2.png" />
+    <None Include="wwwroot\image\animal_shelter_3.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.11" />
