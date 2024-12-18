@@ -11,73 +11,143 @@
 
 <PageTitle>Register an Account</PageTitle>
 
-<h3>Register</h3>
+<div class="register-container">
+    <div class="register-form">
+        <h2>Register</h2>
 
-<div class="row">
-    <div class="col-md-4">
         <EditForm method="post" Model="User" OnValidSubmit="AddUser" FormName="create" Enhance>
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger" role="alert" />
-            <div class="mb-3">
+
+            <div class="form-group">
                 <label for="username" class="form-label">Username:</label>
                 <InputText id="username" @bind-Value="User.Username" class="form-control" aria-required="true" />
                 <ValidationMessage For="() => User.Username" class="text-danger" />
             </div>
-            <div class="mb-3">
+
+            <div class="form-group">
                 <label for="password" class="form-label">Password:</label>
-                <InputText id="password" @bind-Value="User.Password" class="form-control" aria-required="true" />
+                <InputText id="password" @bind-Value="User.Password" type="password" class="form-control" aria-required="true" />
                 <ValidationMessage For="() => User.Password" class="text-danger" />
             </div>
-            <div class="mb-3">
-                <label for="confirmPassword" class="form-label">Confirm Password:</label>
-                <InputText id="confirmPassword" @bind-Value="ConfirmPassword" class="form-control" aria-required="true" />
-                @if (!string.IsNullOrEmpty(_confirmPasswordErrorMessage))
-                {
-                    <span class="text-danger">@_confirmPasswordErrorMessage</span>
-                }
-            </div>
-            <div class="mb-3">
-                <label for="isadmin" class="form-label">IsAdmin:</label>
-                <InputCheckbox id="isadmin" @bind-Value="User.IsAdmin" class="form-check-input" />
-                <ValidationMessage For="() => User.IsAdmin" class="text-danger" />
-            </div>
-            <div class="mb-3">
-                <label for="dateofbirth" class="form-label">DateOfBirth:</label>
+
+            <div class="form-group">
+                <label for="dateofbirth" class="form-label">Date of Birth:</label>
                 <InputDate id="dateofbirth" @bind-Value="User.DateOfBirth" class="form-control" aria-required="true" />
                 <ValidationMessage For="() => User.DateOfBirth" class="text-danger" />
             </div>
-            <button type="submit" class="btn btn-primary">Create</button>
+
+            <button type="submit" class="btn-register">Create Account</button>
         </EditForm>
+
+        <div class="additional-links">
+            <a href="/login" class="btn-register">Back to Login</a>
+        </div>
     </div>
 </div>
 
-<div>
-    <a href="/login">Back to Login</a>
-</div>
+<style>
+    .register-container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 10vh;
+        height: 100vh;
+        background-color: #f7f7f7;
+    }
+
+    .register-form {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+    }
+
+        .register-form h2 {
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+    .form-group {
+        margin-bottom: 1rem;
+        text-align: left;
+    }
+
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        outline: none;
+        transition: border-color 0.2s;
+    }
+
+        .form-control:focus {
+            border-color: #009879;
+        }
+
+    .btn-register {
+        background-color: #009879;
+        color: white;
+        font-size: 1rem;
+        font-weight: bold;
+        padding: 0.75rem;
+        width: 100%;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        text-align: center;
+        display: block;
+        margin-top: 1rem;
+    }
+
+        .btn-register:hover {
+            background-color: #007f63;
+        }
+
+    .additional-links a {
+        display: block;
+        margin-top: 1rem;
+        font-size: 1rem;
+        color: white;
+        background-color: #009879;
+        padding: 0.75rem;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.2s;
+    }
+
+        .additional-links a:hover {
+            background-color: #007f63;
+        }
+
+    .alert {
+        margin-top: 1rem;
+        font-size: 0.875rem;
+    }
+</style>
 
 @code {
     [SupplyParameterFromForm]
     private User User { get; set; } = new();
-
-    private string ConfirmPassword { get; set; } = string.Empty;
-    private string? _confirmPasswordErrorMessage;
-
     private async Task AddUser()
     {
-        _confirmPasswordErrorMessage = null;
-        Debug.WriteLine($"User.Password: {User.Password}, ConfirmPassword: {ConfirmPassword}");
-
-        //Checks to see if passwords match
-        if (User.Password != ConfirmPassword)
-        {
-            _confirmPasswordErrorMessage = "Passwords do not match";
-            return;
-        }
-
         using var context = DbFactory.CreateDbContext();
         context.User.Add(User);
         await context.SaveChangesAsync();
-        NavigationManager.NavigateTo("/users");
+        NavigationManager.NavigateTo("/login");
     }
     
 }

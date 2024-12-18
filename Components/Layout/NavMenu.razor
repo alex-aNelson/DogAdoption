@@ -1,4 +1,7 @@
 ﻿@inherits LayoutComponentBase
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
 
 <div class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -15,9 +18,41 @@
             <a class="nav-link" href="payments" style="color: white;">Add Card</a>
 
             <a class="nav-link" href="customers" style="color: white;">Customers</a>
-
-            <a class="nav-link" href="login" style="color: white;">Login</a>
-
+            
+            @if (isLoggedIn)
+            {
+                <a class="nav-link" href="logout" style="color: white;">Logout</a>
+            }
+            else
+            {
+                <a class="nav-link" href="login" style="color: white;">Login</a>
+            }
+                    
         </div>
     </div>
 </div>
+
+@code {
+    private bool isLoggedIn;
+
+    protected override async Task OnInitializedAsync()
+    {
+        AuthenticationStateProvider.AuthenticationStateChanged += AuthenticationStateChanged;
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        isLoggedIn = authState.User.Identity.IsAuthenticated;
+        Console.WriteLine($"Initial Auth State: {isLoggedIn}"); // Log initial authentication state
+    }
+
+    private void AuthenticationStateChanged(Task<AuthenticationState> task)
+    {
+        var authState = task.Result;
+        isLoggedIn = authState.User.Identity.IsAuthenticated;
+        Console.WriteLine($"Auth State Changed: {isLoggedIn}"); // Log authentication state change
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        AuthenticationStateProvider.AuthenticationStateChanged -= AuthenticationStateChanged;
+    }
+}

@@ -10,10 +10,12 @@ namespace DogAdoption.Models
         [Required]
         [StringLength(100, ErrorMessage = "Username cannot exceed 100 characters.")]
         [UniqueUsername]
+        [UsernameRequirements]
         public string Username { get; set; } = null!; // Username is required and has a 100-character limit
 
         [Required]
         [StringLength(100, ErrorMessage = "Password cannot exceed 100 characters.")]
+        [PasswordRequirements]
         public string Password { get; set; } = null!; // Password is required and has a 100-character limit
 
         public bool IsAdmin { get; set; } = false; // Defaults to false if not provided
