@@ -96,6 +96,6 @@
         using var context = DbFactory.CreateDbContext();
         context.AdoptionApplication.Add(AdoptionApplication);
         await context.SaveChangesAsync();
-        NavigationManager.NavigateTo("/adoptionapplications");
+        NavigationManager.NavigateTo("");
     }
 }
