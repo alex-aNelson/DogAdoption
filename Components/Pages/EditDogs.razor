@@ -29,14 +29,14 @@
     <PropertyColumn Property="dog => dog.Temperament" />
 
 
-    @* <TemplateColumn Context="dog">
+     <TemplateColumn Context="dog">
         <template>
             <img src="@dog.ImageURL" alt="dog image" style="width: 500px; height : 500px;" />
         </template>
         <a href="@($"dogs/edit?dogid={dog.DogID}")">Edit</a> |
         <a href="@($"dogs/details?dogid={dog.DogID}")">Details</a> |
         <a href="@($"dogs/delete?dogid={dog.DogID}")">Delete</a>
-    </TemplateColumn> *@
+    </TemplateColumn> 
 </QuickGrid>
 
 
