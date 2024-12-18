@@ -20,7 +20,7 @@ namespace DogAdoption.Models
 
         public bool IsAdmin { get; set; } = false; // Defaults to false if not provided
 
-        public List<string> Favorites { get; set; }
+        
 
         // Add a DateOfBirth property
         [Required]
